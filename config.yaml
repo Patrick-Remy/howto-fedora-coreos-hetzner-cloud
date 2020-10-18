@@ -1,0 +1,30 @@
+# For docs, see: https://docs.fedoraproject.org/en-US/fedora-coreos/fcct-config/
+
+variant: fcos
+version: 1.1.0
+
+passwd:
+  users:
+    - name: core
+      groups:
+        - docker
+        - wheel
+        - sudo
+      ssh_authorized_keys:
+        # Will be replaced by terraform script
+        - $ssh_public_key
+      # If you need ssh password login, generate hash via `openssl passwd -1` and insert it below
+      # password_hash: $1$1234567890abcdef...
+
+# If you need ssh password login, uncomment the following lines
+#
+# storage:
+#   files:
+#     - path: /etc/ssh/sshd_config.d/20-enable-passwords.conf
+#       mode: 0644
+#       contents:
+#         inline: |
+#           # Fedora CoreOS disables SSH password login by default.
+#           # Enable it.
+#           # This file must sort before 40-disable-passwords.conf.
+#           PasswordAuthentication yes
