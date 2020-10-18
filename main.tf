@@ -99,8 +99,12 @@ resource "hcloud_server" "master" {
       "wget -O /usr/local/bin/fcct 'https://github.com/coreos/fcct/releases/download/v${var.tools_fcct_version}/fcct-x86_64-unknown-linux-gnu'",
       "chmod +x /usr/local/bin/fcct",
       "fcct --strict < config.yaml > config.ign",
-      # Download and install coreos to /dev/sda
+      # coreos-installer binary is copied, if you have sufficient RAM available, you can also uncomment the following
+      # two lines and comment-out the `chmod +x` line, to build coreos-installer in rescue mode
+      # "apt install cargo",
+      # "cargo install coreos-installer",
       "chmod +x /usr/local/bin/coreos-installer",
+      # Download and install Fedora CoreOS to /dev/sda
       "coreos-installer install /dev/sda -i /root/config.ign",
       # Exit rescue mode and boot into coreos
       "reboot"
