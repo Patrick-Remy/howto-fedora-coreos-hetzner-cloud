@@ -9,29 +9,31 @@ on a vServer at Hetzner Cloud.
 ### Clone repository
 Clone this repository into any folder on your host machine and follow the instructions.
 
-### Setup terraform
-If not done already [install terraform](https://www.terraform.io/downloads.html) as instructed. E.g. via
+### Setup Terraform
+If not done already [install Terraform](https://www.terraform.io/downloads.html) as instructed. E.g. via
 `brew install terraform` or download the apropriate binary for your operating system.
 
 Now, change into the cloned repo dir, and exec `terraform init` to install the
 [terraform Hetzner Cloud Provider](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs).
 
-### Build coreos-installer
+### Build `coreos-installer`
 Currently the [`coreos-installer`](https://github.com/coreos/coreos-installer) is not available as a binary. Therefore,
 you need to install rust's package manager [`cargo`](https://doc.rust-lang.org/cargo/getting-started/installation.html)
 and build the binary on a linux-machine with `cargo install --target-dir . coreos-installer`.
 
-The resulting binary will be copied by terraform to the vServer in rescue mode, so you have to move it as
+The resulting binary will be copied by Terraform to the vServer in rescue mode, so you have to move it as
 `coreos-installer` into your working directory. Building the binary in rescue mode on the vServer will fail, if there is
-not enough RAM.
+not enough space on the initramfs (like on cx11).
 
 
 ## Get it up and running! 🚀
 
 ### Last configurations
 In the section `Variables` of the `main.tf`, adjust the default values for `ssh_public_key`, `ssh_public_key_name`,
-`hcloud_server_type`, `hcloud_server_datacenter` and `hcloud_server_name` to your needs. Optionally, have a look at the
-`config.yaml`.
+`hcloud_server_type`, `hcloud_server_datacenter` and `hcloud_server_name` to your needs or add a
+[`.tfvars` file](https://www.terraform.io/docs/configuration/variables.html#variable-definitions-tfvars-files) to set
+your desired settings. Optionally, have a look at the `config.yaml`. This file will be used by the `coreos-installer` to
+configure the OS.
 
 ### Provision it!
 Run `terraform apply`, enter your Hetzner Cloud API Token when prompted, and let the magic be done!
