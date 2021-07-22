@@ -3,6 +3,8 @@
 Install [Fedora CoreOS](https://docs.fedoraproject.org/en-US/fedora-coreos/) via [terraform](https://www.terraform.io)
 on a vServer at Hetzner Cloud.
 
+> ## This howto is no longer working, see [#1](https://github.com/Patrick-Remy/howto-fedora-coreos-hetzner-cloud/issues/1) for more details. I recommend using this [terraform module instead](https://github.com/sedlund/terraform-hcloud-fcos).
+
 
 ## Prerequisites 🤓
 
